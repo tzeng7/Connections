@@ -16,9 +16,6 @@ class Game:
         self.guesses = []
         self.prompter = LLMPrompter()
 
-    # def test(self):
-    #     return self.prompter.test_model()
-
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
         return answer
@@ -56,9 +53,10 @@ class Game:
                 if check_answer == SOLUTION_LENGTH:
 
                     ### switch back to flash model if pro model gets it right
-                    if self.prompter.uses_flash and count >= max_count:
+                    if not self.prompter.uses_flash and count >= max_count:
                         self.prompter.swap_model()
                         has_switched = False
+                        count = 0
 
                     print(f'{answer} is correct.')
                     for word in answer:
