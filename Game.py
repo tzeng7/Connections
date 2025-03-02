@@ -12,10 +12,15 @@ class Game:
 
     def __init__(self, words: set[str]):
         self.words = words
-        self.solutions = Solution([{"CERTIFICATE", "DEED", "RECEIPT", "TITLE"}, {"DANCE", "MONOLOGUE", "SKETCH", "SONG"},{"DONUT", "PACIFIER", "SAXOPHONE", "SKATEBOARD"}, {"ANDROID", "RATTLESNAKE", "ROLLERBLADE", "SHAKESPEARE"}])
+        self.solutions = Solution([{"GNASH", "GRATE", "GRIND", "SCRAPE"},
+                        {"CAN", "FERMENT", "FREEZE", "PICKLE"},
+                        {"BUTTER", "HOT SAUCE", "JAM", "SYRUP"},
+                        {"BEANS", "GUTS", "MILK", "TEA"}])
         self.guesses = []
         self.prompter = LLMPrompter()
 
+    def set_words(self, image_path):
+        self.words = self.prompter.read_image(image_path)
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
         return answer
@@ -31,7 +36,9 @@ class Game:
         return max_same
 
     # TODO: clean up code, figure out why it keeps coming up with solutions with words that are already used
+    # TODO: at 4 words left in the set, just return those words
     def play(self):
+        self.set_words("images/test2.png")
         has_switched = False
         max_count = 10
         count = 0
@@ -94,6 +101,8 @@ class Game:
                 print("Game won.")
 
 
-list_test = ["SAXOPHONE", "ROLLERBLADE", "PACIFIER", "SKETCH", "RATTLESNAKE", "MONOLOGUE", "CERTIFICATE", "TITLE", "RECEIPT", "SKATEBOARD", "SONG", "DONUT", "DEED", "DANCE", "SHAKESPEARE", "ANDROID"]
-test = set(list_test)
-Game(test).play()
+# list_test = ["SAXOPHONE", "ROLLERBLADE", "PACIFIER", "SKETCH", "RATTLESNAKE", "MONOLOGUE", "CERTIFICATE", "TITLE", "RECEIPT", "SKATEBOARD", "SONG", "DONUT", "DEED", "DANCE", "SHAKESPEARE", "ANDROID"]
+# test = set(list_test)
+Game(set()).play()
+
+

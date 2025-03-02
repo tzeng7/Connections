@@ -6,11 +6,14 @@ from dotenv import load_dotenv
 import os
 from google import genai
 from google.genai import types
-from enum import Enum
+from PIL import Image
+
+
 class Answer:
     def __init__(self, answer: list[str], reason: str):
         self.answer = answer
         self.reason = reason
+
 
 class LLMPrompter:
     def __init__(self):
@@ -37,6 +40,7 @@ class LLMPrompter:
                 history=self.history
             )
             self.uses_flash = True
+
     # Create the model
     def prompt_llm(self, input_prompt: str) -> Answer:
         self.history.append(types.Content(
@@ -57,15 +61,19 @@ class LLMPrompter:
         print(response.model_version)
         return json_text_answer
 
-
-    # def test_model(self):
-    #     # self.swap_model()
-    #     return self.prompt_llm("Which Gemini model are you operating on?")
     def configure(self):
         load_dotenv()
 
-    # prompt = open("prompt.txt")
+    def read_image(self, image_path):
 
-    # Example
+        response = self.client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=[
+                'Return an array of the strings found in the images squares. Only return the array.',
+                Image.open(image_path)
+            ]
+        )
 
-    # self.promptLLM(self.client, prompt.read())
+        return set(json.loads(response.text))
+
+
