@@ -69,10 +69,12 @@ class LLMPrompter:
         response = self.client.models.generate_content(
             model="gemini-2.0-flash",
             contents=[
-                'Return an array of the strings found in the images squares. Only return the array.',
+                'Return an array of the strings found in the images squares in a single line.',
                 Image.open(image_path)
             ]
         )
+
+        print(response.text)
 
         return set(json.loads(response.text))
 

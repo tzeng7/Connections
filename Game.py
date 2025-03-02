@@ -2,8 +2,7 @@ import time
 
 from GeminiAPI import LLMPrompter, Answer
 from Solution import Solution
-import json
-import re
+from selenium import webdriver
 
 SOLUTION_LENGTH = 4
 
@@ -12,10 +11,10 @@ class Game:
 
     def __init__(self, words: set[str]):
         self.words = words
-        self.solutions = Solution([{"GNASH", "GRATE", "GRIND", "SCRAPE"},
-                        {"CAN", "FERMENT", "FREEZE", "PICKLE"},
-                        {"BUTTER", "HOT SAUCE", "JAM", "SYRUP"},
-                        {"BEANS", "GUTS", "MILK", "TEA"}])
+        self.solutions = Solution([{"DODGE", "ESCAPE", "LOSE", "SHAKE"},
+                    {"AIRPLANE", "DO NOT DISTURB", "RING", "VIBRATE"},
+                    {"TUNGSTEN", "WATT", "WEST", "WIN"},
+                    {"DRAW", "HAM", "HEART", "SHOE"}])
         self.guesses = []
         self.prompter = LLMPrompter()
 
@@ -38,7 +37,7 @@ class Game:
     # TODO: clean up code, figure out why it keeps coming up with solutions with words that are already used
     # TODO: at 4 words left in the set, just return those words
     def play(self):
-        self.set_words("images/test2.png")
+        self.set_words("images/test3-2.png")
         has_switched = False
         max_count = 10
         count = 0
