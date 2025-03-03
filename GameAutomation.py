@@ -85,7 +85,6 @@ class Connections:
     def play(self):
         self.setup()
         while not self.has_ended():
-            self.service
             self.make_guess()
 
 
