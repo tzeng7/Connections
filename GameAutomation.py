@@ -9,19 +9,19 @@ from selenium.common.exceptions import InvalidSelectorException
 from Game import Game
 
 
-# TODO: how to find out whether answer was correct
 class Connections:
     def __init__(self):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=2)
         self.game = Game(set())
         self.correct = 0
-        self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'}, {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
+        self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'},
+                        {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
         self.index = 0
 
     def has_ended(self):
         try:
-            congrats_text = self.service.find_element(By.CLASS_NAME, "Congrats-module_modalTitle__QDY5W")
+            congrats_text = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Congrats-module_modalTitle__QDY5W")))
             return congrats_text.is_displayed()
         except NoSuchElementException as e:
             print(e.msg)
@@ -101,6 +101,7 @@ class Connections:
             time.sleep(.5)
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
         return guesses
+
     # def make_guess(self, prompt):
     #     guesses = self.answers[self.index]
     #     self.index += 1
@@ -111,7 +112,6 @@ class Connections:
     #         time.sleep(.5)
     #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
     #     return guesses
-
 
     def play(self):
         self.setup()
