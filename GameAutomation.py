@@ -16,6 +16,7 @@ class Connections:
         self.wait = WebDriverWait(self.service, timeout=2)
         self.game = Game(set())
         self.correct = 0
+        self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'}, {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
 
     def has_ended(self):
         try:
@@ -91,10 +92,8 @@ class Connections:
         for guess in guesses:
             path = f"//label[@data-flip-id='{guess}']"
             self.click_element_by_xpath(path)
-            time.sleep(1)
+            time.sleep(.5)
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
-        time.sleep(2)
-        self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
         return guesses
 
     def play(self):
@@ -102,6 +101,7 @@ class Connections:
         prompt = open("prompt.txt").read()
         prompt += f'\nInput: {list(self.game.words)}'
         while not self.has_ended():
+            print(self.find_num_correct_themes())
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
             if answer not in self.game.guesses:
@@ -110,28 +110,34 @@ class Connections:
                     prompt = f'''That is correct.
                              \nNow there are {len(self.game.words)} words remaining. Pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
                              \nInput: {list(self.game.words)}
-                             \nSolution: 
+                             \nSolution:
                              '''
                 elif self.shows_one_off():
                     print(f'{answer} is almost correct.')
-                    prompt = f'''That is incorrect. 
+                    prompt = f'''That is incorrect.
                              \n3 of the words in the guess are correctly matched.
                              \nPlease pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
                              \nInput: {list(self.game.words)}
                              \nSolution:
                              '''
+                    time.sleep(2)
+                    self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
                 else:
                     print(f'{answer} is incorrect.')
-                    prompt = f'''That is incorrect. 
+                    prompt = f'''That is incorrect.
                              \nPlease pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
                              \nInput: {list(self.game.words)}
                              \nSolution:
                              '''
+                    time.sleep(2)
+                    self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             else:
                 prompt = f'''You have tried this combination before. Pick a different combination of four words that share a common theme. Return a json object with keys "answer" and "reason"
                         \nInput: {list(self.game.words)}
                         \nSolution:
                         '''
+                time.sleep(2)
+                self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
 
 

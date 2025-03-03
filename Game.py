@@ -117,4 +117,4 @@ class Game:
 
 # list_test = ["SAXOPHONE", "ROLLERBLADE", "PACIFIER", "SKETCH", "RATTLESNAKE", "MONOLOGUE", "CERTIFICATE", "TITLE", "RECEIPT", "SKATEBOARD", "SONG", "DONUT", "DEED", "DANCE", "SHAKESPEARE", "ANDROID"]
 # test = set(list_test)
-# Game(set()).play()
+# Game(set({"WIN", "SHOE", "SHAKE", "WEST", "VIBRATE", "LOSE", "HAM", "DRAW", "HEART", "AIRPLANE", "TUNGSTEN", "DODGE", "WATT", "ESCAPE", "RING", "DO NOT DISTURB"})).play()
