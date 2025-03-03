@@ -17,6 +17,7 @@ class Connections:
         self.game = Game(set())
         self.correct = 0
         self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'}, {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
+        self.index = 0
 
     def has_ended(self):
         try:
@@ -67,6 +68,8 @@ class Connections:
         new_correct = self.find_num_correct_themes()
         if self.correct < new_correct:
             self.correct = new_correct
+            return True
+        return False
         # update game words list
 
     def setup(self):
@@ -87,14 +90,24 @@ class Connections:
             self.click_element_by_xpath(path)
             time.sleep(1)
 
+    # def make_guess(self, prompt):
+    #     guesses = self.game.make_guess(prompt)
+    #     for guess in guesses:
+    #         path = f"//label[@data-flip-id='{guess}']"
+    #         self.click_element_by_xpath(path)
+    #         time.sleep(.5)
+    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
+    #     return guesses
     def make_guess(self, prompt):
-        guesses = self.game.make_guess(prompt)
+        guesses = self.answers[self.index]
+        self.index += 1
         for guess in guesses:
             path = f"//label[@data-flip-id='{guess}']"
             self.click_element_by_xpath(path)
             time.sleep(.5)
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
         return guesses
+
 
     def play(self):
         self.setup()
@@ -104,6 +117,7 @@ class Connections:
             print(self.find_num_correct_themes())
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
+            self.service.implicitly_wait(2)
             if answer not in self.game.guesses:
                 if self.shows_correct():
                     self.game.remove_guess_from_words(answer)
