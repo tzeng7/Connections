@@ -40,7 +40,9 @@ class Connections:
         try:
             card = self.service.find_element(By.XPATH, path)
             self.wait.until(lambda _: EC.element_to_be_clickable(card))
+            print(f'{path} + {card.is_displayed()}')
             card.click()
+            return card
         except NoSuchElementException as e:
             print(e)
             return
@@ -66,6 +68,7 @@ class Connections:
 
     def shows_correct(self):
         new_correct = self.find_num_correct_themes()
+        print(f'{self.correct} {new_correct}')
         if self.correct < new_correct:
             self.correct = new_correct
             return True
@@ -101,10 +104,11 @@ class Connections:
     def make_guess(self, prompt):
         guesses = self.answers[self.index]
         self.index += 1
+        print(guesses)
         for guess in guesses:
             path = f"//label[@data-flip-id='{guess}']"
-            self.click_element_by_xpath(path)
-            time.sleep(.5)
+            card = self.click_element_by_xpath(path)
+            time.sleep(2)
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
         return guesses
 
@@ -114,10 +118,11 @@ class Connections:
         prompt = open("prompt.txt").read()
         prompt += f'\nInput: {list(self.game.words)}'
         while not self.has_ended():
+            time.sleep(1)
             print(self.find_num_correct_themes())
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
-            self.service.implicitly_wait(2)
+            time.sleep(2)
             if answer not in self.game.guesses:
                 if self.shows_correct():
                     self.game.remove_guess_from_words(answer)
