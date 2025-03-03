@@ -21,9 +21,6 @@ class Game:
     def set_words_image(self, image_path: str):
         self.words = self.prompter.read_image(image_path)
 
-    def set_words(self, words: [str]):
-        self.words = words
-
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
         return answer
@@ -38,9 +35,15 @@ class Game:
             max_same = max(count, max_same)
         return max_same
 
-    def make_guess(self):
-        prompt = open("prompt.txt").read()
-        prompt += f'\nInput: {list(self.words)}'
+    def remove_guess_from_words(self, guess: set[str]):
+        for word in guess:
+            self.words.remove(word)
+
+    def add_guess(self, guess):
+        self.guesses.append(guess)
+
+    def make_guess(self, prompt: str):
+        # prompt = open("prompt.txt").read()
         answer = set(self.run_prompt(prompt).answer)
         print(answer)
         return answer
