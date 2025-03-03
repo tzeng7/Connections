@@ -12,14 +12,18 @@ class Game:
     def __init__(self, words: set[str]):
         self.words = words
         self.solutions = Solution([{"DODGE", "ESCAPE", "LOSE", "SHAKE"},
-                    {"AIRPLANE", "DO NOT DISTURB", "RING", "VIBRATE"},
-                    {"TUNGSTEN", "WATT", "WEST", "WIN"},
-                    {"DRAW", "HAM", "HEART", "SHOE"}])
+                                   {"AIRPLANE", "DO NOT DISTURB", "RING", "VIBRATE"},
+                                   {"TUNGSTEN", "WATT", "WEST", "WIN"},
+                                   {"DRAW", "HAM", "HEART", "SHOE"}])
         self.guesses = []
         self.prompter = LLMPrompter()
 
-    def set_words(self, image_path):
+    def set_words_image(self, image_path: str):
         self.words = self.prompter.read_image(image_path)
+
+    def set_words(self, words: [str]):
+        self.words = words
+
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
         return answer
@@ -34,10 +38,19 @@ class Game:
             max_same = max(count, max_same)
         return max_same
 
+    def make_guess(self):
+        prompt = open("prompt.txt").read()
+        prompt += f'\nInput: {list(self.words)}'
+        answer = set(self.run_prompt(prompt).answer)
+        print(answer)
+        return answer
+
     # TODO: clean up code, figure out why it keeps coming up with solutions with words that are already used
     # TODO: at 4 words left in the set, just return those words
+
+
     def play(self):
-        self.set_words("images/test3-2.png")
+        # self.set_words("images/test3-2.png")
         has_switched = False
         max_count = 10
         count = 0
@@ -99,9 +112,6 @@ class Game:
             if len(self.words) == 0:
                 print("Game won.")
 
-
 # list_test = ["SAXOPHONE", "ROLLERBLADE", "PACIFIER", "SKETCH", "RATTLESNAKE", "MONOLOGUE", "CERTIFICATE", "TITLE", "RECEIPT", "SKATEBOARD", "SONG", "DONUT", "DEED", "DANCE", "SHAKESPEARE", "ANDROID"]
 # test = set(list_test)
-Game(set()).play()
-
-
+# Game(set()).play()

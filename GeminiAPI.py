@@ -48,7 +48,6 @@ class LLMPrompter:
             role="user"
         ))
         response = self.chat_session.send_message(input_prompt)
-        print(response.text)
 
         json_text = re.findall("```json\n((.|\n)*)\n```", response.text)[0][0]
         json_text_answer = Answer(**json.loads(json_text))
@@ -58,7 +57,6 @@ class LLMPrompter:
             role="model"
         ))
 
-        print(response.model_version)
         return json_text_answer
 
     def configure(self):
