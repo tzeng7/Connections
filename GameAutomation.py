@@ -93,24 +93,24 @@ class Connections:
             self.click_element_by_xpath(path)
             time.sleep(1)
 
+    def make_guess(self, prompt):
+        guesses = self.game.make_guess(prompt)
+        for guess in guesses:
+            path = f"//label[@data-flip-id='{guess}']"
+            self.click_element_by_xpath(path)
+            time.sleep(.5)
+        self.click_element_by_xpath("//button[@data-testid='submit-btn']")
+        return guesses
     # def make_guess(self, prompt):
-    #     guesses = self.game.make_guess(prompt)
+    #     guesses = self.answers[self.index]
+    #     self.index += 1
+    #     print(guesses)
     #     for guess in guesses:
     #         path = f"//label[@data-flip-id='{guess}']"
-    #         self.click_element_by_xpath(path)
+    #         card = self.click_element_by_xpath(path)
     #         time.sleep(.5)
     #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
     #     return guesses
-    def make_guess(self, prompt):
-        guesses = self.answers[self.index]
-        self.index += 1
-        print(guesses)
-        for guess in guesses:
-            path = f"//label[@data-flip-id='{guess}']"
-            card = self.click_element_by_xpath(path)
-            time.sleep(2)
-        self.click_element_by_xpath("//button[@data-testid='submit-btn']")
-        return guesses
 
 
     def play(self):
@@ -119,7 +119,6 @@ class Connections:
         prompt += f'\nInput: {list(self.game.words)}'
         while not self.has_ended():
             time.sleep(1)
-            print(self.find_num_correct_themes())
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
             time.sleep(2)
@@ -158,6 +157,7 @@ class Connections:
                 time.sleep(2)
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
+            self.service.implicitly_wait(5)
 
 
 Connections().play()
