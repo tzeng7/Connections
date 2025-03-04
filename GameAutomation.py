@@ -6,18 +6,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
+from selenium.common.exceptions import TimeoutException
 from Game import Game
 
 
 class Connections:
     def __init__(self):
         self.service = webdriver.Chrome()
-        self.wait = WebDriverWait(self.service, timeout=2)
+        self.wait = WebDriverWait(self.service, timeout=1)
         self.game = Game(set())
         self.correct = 0
-        self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'},
-                        {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
-        self.index = 0
+        # self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'},
+        #                 {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
+        # self.index = 0
 
     def has_ended(self):
         try:
@@ -40,7 +41,6 @@ class Connections:
         try:
             card = self.service.find_element(By.XPATH, path)
             self.wait.until(lambda _: EC.element_to_be_clickable(card))
-            print(f'{path} + {card.is_displayed()}')
             card.click()
             return card
         except NoSuchElementException as e:
@@ -60,15 +60,16 @@ class Connections:
 
     def shows_one_off(self):
         try:
-            one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
+            # one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
+            one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
             return one_off.is_displayed()
         except NoSuchElementException as e:
-            print(e.msg)
+            return False
+        except TimeoutException as e:
             return False
 
     def shows_correct(self):
         new_correct = self.find_num_correct_themes()
-        print(f'{self.correct} {new_correct}')
         if self.correct < new_correct:
             self.correct = new_correct
             return True
@@ -117,20 +118,16 @@ class Connections:
         self.setup()
         prompt = open("prompt.txt").read()
         prompt += f'\nInput: {list(self.game.words)}'
-        while not self.has_ended():
+        while self.game.incorrect < 4 and self.correct < 4:
+            if len(self.game.guesses) >= 6:
+                self.game.switch_model()
             time.sleep(1)
+
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
-            time.sleep(2)
             if answer not in self.game.guesses:
-                if self.shows_correct():
-                    self.game.remove_guess_from_words(answer)
-                    prompt = f'''That is correct.
-                             \nNow there are {len(self.game.words)} words remaining. Pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
-                             \nInput: {list(self.game.words)}
-                             \nSolution:
-                             '''
-                elif self.shows_one_off():
+                if self.shows_one_off():
+                    self.game.increment_incorrect()
                     print(f'{answer} is almost correct.')
                     prompt = f'''That is incorrect.
                              \n3 of the words in the guess are correctly matched.
@@ -138,26 +135,36 @@ class Connections:
                              \nInput: {list(self.game.words)}
                              \nSolution:
                              '''
-                    time.sleep(2)
+                    time.sleep(.5)
                     self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
+                elif self.shows_correct():
+                    self.game.remove_guess_from_words(answer)
+                    prompt = f'''That is correct.
+                             \nNow there are {len(self.game.words)} words remaining. Pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
+                             \nInput: {list(self.game.words)}
+                             \nSolution:
+                             '''
+
                 else:
+                    self.game.increment_incorrect()
+
                     print(f'{answer} is incorrect.')
                     prompt = f'''That is incorrect.
                              \nPlease pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
                              \nInput: {list(self.game.words)}
                              \nSolution:
                              '''
-                    time.sleep(2)
                     self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             else:
                 prompt = f'''You have tried this combination before. Pick a different combination of four words that share a common theme. Return a json object with keys "answer" and "reason"
                         \nInput: {list(self.game.words)}
                         \nSolution:
                         '''
-                time.sleep(2)
+                time.sleep(1)
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
-            self.service.implicitly_wait(5)
+            self.service.implicitly_wait(5.75)
+        print("Game has ended.")
 
 
 Connections().play()

@@ -16,8 +16,8 @@ class Game:
                                    {"TUNGSTEN", "WATT", "WEST", "WIN"},
                                    {"DRAW", "HAM", "HEART", "SHOE"}])
         self.guesses = []
+        self.incorrect = 0
         self.prompter = LLMPrompter()
-
     def set_words_image(self, image_path: str):
         self.words = self.prompter.read_image(image_path)
 
@@ -47,6 +47,12 @@ class Game:
         answer = set(self.run_prompt(prompt).answer)
         print(answer)
         return answer
+
+    def increment_incorrect(self):
+        self.incorrect = self.incorrect + 1
+
+    def switch_model(self):
+        self.prompter.swap_model()
 
     # TODO: clean up code, figure out why it keeps coming up with solutions with words that are already used
     # TODO: at 4 words left in the set, just return those words
