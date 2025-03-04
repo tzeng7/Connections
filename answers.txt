@@ -21,12 +21,11 @@ combination
 [
 {"DEWY", "FRESH", "GLOWING", "SMOOTH"},
 {"DAISY", "PIP", "SCROOGE", "TWIST"},
-{"DAISY", "PIP", "SCROOGE", "SUPPLY"},
-{"DAISY", "MOP", "SCROOGE", "SUPPLY"},
-{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"}
+{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"},
 {"BUCKET", "MOP", "TANGLE", "TWIST"},
 {"BUCKET", "MOP", "SCROOGE", "TWIST"},
 {"MAT", "MOP", "TANGLE", "THATCH"},
+{"BUCKET", "PIP", "SCROOGE", "TWIST"}
 ]
 
 

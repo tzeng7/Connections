@@ -21,12 +21,34 @@ class Connections:
 
 
 
-    def has_ended(self):
+    def has_won(self):
+        options = ["Phew", "Solid", "Great", "Perfect"]
         try:
-            congrats_text = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Congrats-module_modalTitle__QDY5W")))
-            return congrats_text.is_displayed()
+            self.service.implicitly_wait(2)
+            one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
+            if one_off.is_displayed():
+                h2 = one_off.find_element(By.TAG_NAME, "h2")
+                return h2.text in options
+            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
+            return False
         except NoSuchElementException as e:
-            print(e.msg)
+            return False
+        except TimeoutException as e:
+            return False
+
+    def has_ended_incorrect(self):
+        print("Ended Incorrect")
+        try:
+            self.service.implicitly_wait(2)
+            one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
+            if one_off.is_displayed():
+                h2 = one_off.find_element(By.TAG_NAME, "h2")
+                return h2.text == "Next Time"
+            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
+            return False
+        except NoSuchElementException as e:
+            return False
+        except TimeoutException as e:
             return False
 
     def click_element_by_class_name(self, class_name):
@@ -146,6 +168,8 @@ class Connections:
                              '''
                     time.sleep(.5)
                     self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
+                elif self.has_ended_incorrect():
+                    break
                 elif self.shows_correct():
                     self.game.remove_guess_from_words(answer)
                     print(f'{answer} is correct.')
@@ -154,7 +178,6 @@ class Connections:
                              \nInput: {list(self.game.words)}
                              \nSolution:
                              '''
-
                 else:
                     self.game.increment_incorrect()
 
@@ -181,10 +204,11 @@ class Connections:
 Connections([
 {"DEWY", "FRESH", "GLOWING", "SMOOTH"},
 {"DAISY", "PIP", "SCROOGE", "TWIST"},
-{"DAISY", "PIP", "MOUNTAIN", "SUPPLY"},
 {"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"},
-{"BUCKET", "PIP", "SCROOGE", "TWIST"},
+{"BUCKET", "MOP", "TANGLE", "TWIST"},
+{"BUCKET", "MOP", "SCROOGE", "TWIST"},
 {"MAT", "MOP", "TANGLE", "THATCH"},
+{"BUCKET", "PIP", "SCROOGE", "TWIST"}
 ]).play()
 
 
