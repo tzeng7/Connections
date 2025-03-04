@@ -11,14 +11,15 @@ from Game import Game
 
 
 class Connections:
-    def __init__(self):
+    def __init__(self, answers):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1)
         self.game = Game(set())
         self.correct = 0
-        # self.answers = [{'LOAF', 'LOUNGE', 'CHILL', 'REST'}, {'SCROLL', 'ROLL', 'REEL', 'BOLT'},
-        #                 {'BAR', 'COIN', 'LEAF', 'NUGGET'}, {'BONE', 'DINOSAUR', 'CLUB', 'RUBBLE'}]
-        # self.index = 0
+        self.answers = answers
+        self.index = 0
+
+
 
     def has_ended(self):
         try:
@@ -51,6 +52,7 @@ class Connections:
             return
 
     def find_num_correct_themes(self):
+        print("Testing if correct")
         try:
             ol = self.service.find_element(By.CLASS_NAME, "SolvedCategories-module_solvedCategoriesContainer___8Udu")
             solved = ol.find_elements(By.CLASS_NAME, "SolvedCategory-module_solvedCategory___8phN")
@@ -59,10 +61,15 @@ class Connections:
             return 0
 
     def shows_one_off(self):
+        print("Testing one off")
         try:
-            # one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
-            one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
-            return one_off.is_displayed()
+            self.service.implicitly_wait(2)
+            one_off = self.service.find_element(By.CLASS_NAME, "Toast-module_toast__YAoDa")
+            if one_off.is_displayed():
+                h2 = one_off.find_element(By.TAG_NAME, "h2")
+                return h2.text == "One away..."
+            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
+            return False
         except NoSuchElementException as e:
             return False
         except TimeoutException as e:
@@ -94,25 +101,26 @@ class Connections:
             self.click_element_by_xpath(path)
             time.sleep(1)
 
+    # def make_guess(self, prompt):
+    #     guesses = self.game.make_guess(prompt)
+    #     for guess in guesses:
+    #         path = f"//label[@data-flip-id='{guess}']"
+    #         self.click_element_by_xpath(path)
+    #         time.sleep(.5)
+    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
+    #     time.sleep(1)
+    #     return guesses
+
     def make_guess(self, prompt):
-        guesses = self.game.make_guess(prompt)
+        guesses = self.answers[self.index]
+        self.index += 1
         for guess in guesses:
             path = f"//label[@data-flip-id='{guess}']"
             self.click_element_by_xpath(path)
             time.sleep(.5)
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
+        time.sleep(1)
         return guesses
-
-    # def make_guess(self, prompt):
-    #     guesses = self.answers[self.index]
-    #     self.index += 1
-    #     print(guesses)
-    #     for guess in guesses:
-    #         path = f"//label[@data-flip-id='{guess}']"
-    #         card = self.click_element_by_xpath(path)
-    #         time.sleep(.5)
-    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
-    #     return guesses
 
     def play(self):
         self.setup()
@@ -126,6 +134,7 @@ class Connections:
             # make guess --> check if one off or correct --> update prompt
             answer = self.make_guess(prompt)
             if answer not in self.game.guesses:
+                time.sleep(1)
                 if self.shows_one_off():
                     self.game.increment_incorrect()
                     print(f'{answer} is almost correct.')
@@ -139,6 +148,7 @@ class Connections:
                     self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
                 elif self.shows_correct():
                     self.game.remove_guess_from_words(answer)
+                    print(f'{answer} is correct.')
                     prompt = f'''That is correct.
                              \nNow there are {len(self.game.words)} words remaining. Pick 4 words that share a common theme. Return a json object with keys "answer" and "reason"
                              \nInput: {list(self.game.words)}
@@ -163,8 +173,18 @@ class Connections:
                 time.sleep(1)
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
-            self.service.implicitly_wait(5.75)
+            # self.service.implicitly_wait(5.75)
+        time.sleep(5)
         print("Game has ended.")
 
 
-Connections().play()
+Connections([
+{"DEWY", "FRESH", "GLOWING", "SMOOTH"},
+{"DAISY", "PIP", "SCROOGE", "TWIST"},
+{"DAISY", "PIP", "MOUNTAIN", "SUPPLY"},
+{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"},
+{"BUCKET", "PIP", "SCROOGE", "TWIST"},
+{"MAT", "MOP", "TANGLE", "THATCH"},
+]).play()
+
+

@@ -1,0 +1,34 @@
+3/4
+correct
+[{"DEWY", "FRESH", "GLOWING", "SMOOTH"},
+{"MAT", "MOP", "TANGLE", "THATCH"},
+{"BUCKET", "PIP", "SCROOGE", "TWIST"},
+{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"}]
+
+one off
+[{"MAT", "FRESH", "GLOWING", "SMOOTH"},
+{"DEWY", "MOP", "TANGLE", "THATCH"},
+{"DAISY", "PIP", "SCROOGE", "TWIST"},
+{"BUCKET", "FOOD", "MOUNTAIN", "SUPPLY"}]
+
+incorrect
+[{"DEWY", "MOP", "GLOWING", "SMOOTH"},
+{"MAT", "FRESH", "TANGLE", "THATCH"},
+{"BUCKET", "FOOD", "SCROOGE", "TWIST"},
+{"DAISY", "PIP", "MOUNTAIN", "SUPPLY"}]
+
+combination
+[
+{"DEWY", "FRESH", "GLOWING", "SMOOTH"},
+{"DAISY", "PIP", "SCROOGE", "TWIST"},
+{"DAISY", "PIP", "SCROOGE", "SUPPLY"},
+{"DAISY", "MOP", "SCROOGE", "SUPPLY"},
+{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"}
+{"BUCKET", "MOP", "TANGLE", "TWIST"},
+{"BUCKET", "MOP", "SCROOGE", "TWIST"},
+{"MAT", "MOP", "TANGLE", "THATCH"},
+]
+
+
+
+
