@@ -11,15 +11,13 @@ from Game import Game
 
 
 class Connections:
-    def __init__(self, answers):
+    def __init__(self):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1)
         self.game = Game(set())
         self.correct = 0
-        self.answers = answers
+        # self.answers = answers
         self.index = 0
-
-
 
     def has_won(self):
         options = ["Phew", "Solid", "Great", "Perfect"]
@@ -123,19 +121,8 @@ class Connections:
             self.click_element_by_xpath(path)
             time.sleep(1)
 
-    # def make_guess(self, prompt):
-    #     guesses = self.game.make_guess(prompt)
-    #     for guess in guesses:
-    #         path = f"//label[@data-flip-id='{guess}']"
-    #         self.click_element_by_xpath(path)
-    #         time.sleep(.5)
-    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
-    #     time.sleep(1)
-    #     return guesses
-
     def make_guess(self, prompt):
-        guesses = self.answers[self.index]
-        self.index += 1
+        guesses = self.game.make_guess(prompt)
         for guess in guesses:
             path = f"//label[@data-flip-id='{guess}']"
             self.click_element_by_xpath(path)
@@ -143,6 +130,17 @@ class Connections:
         self.click_element_by_xpath("//button[@data-testid='submit-btn']")
         time.sleep(1)
         return guesses
+
+    # def make_guess(self, prompt):
+    #     guesses = self.answers[self.index]
+    #     self.index += 1
+    #     for guess in guesses:
+    #         path = f"//label[@data-flip-id='{guess}']"
+    #         self.click_element_by_xpath(path)
+    #         time.sleep(.5)
+    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
+    #     time.sleep(1)
+    #     return guesses
 
     def play(self):
         self.setup()
@@ -201,14 +199,4 @@ class Connections:
         print("Game has ended.")
 
 
-Connections([
-{"DEWY", "FRESH", "GLOWING", "SMOOTH"},
-{"DAISY", "PIP", "SCROOGE", "TWIST"},
-{"DAISY", "FOOD", "MOUNTAIN", "SUPPLY"},
-{"BUCKET", "MOP", "TANGLE", "TWIST"},
-{"BUCKET", "MOP", "SCROOGE", "TWIST"},
-{"MAT", "MOP", "TANGLE", "THATCH"},
-{"BUCKET", "PIP", "SCROOGE", "TWIST"}
-]).play()
-
-
+Connections().play()
