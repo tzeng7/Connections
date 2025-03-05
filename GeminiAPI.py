@@ -20,7 +20,7 @@ class LLMPrompter:
         self.configure()
         self.client = genai.Client(api_key=os.getenv("GEMINI_KEY"))
         self.chat_session = self.client.chats.create(
-            model="gemini-2.0-flash",
+            model="gemini-2.0-pro-exp-02-05",
         )
         self.history = []
         self.uses_flash = True
