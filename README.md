@@ -1,18 +1,11 @@
 # Connections
 
 LLM wrapper to use Google's Gemini API to play NYT Connections where users
-are tasked to match 16 unique words to 4 themes. 
+are tasked to match 16 unique words to 4 themes. The LLM will be prompted based on a history
+of pre-existing Connections themes to give it an idea of what type of matches or 
+themes the game typically uses.
 
-### TODO:
-- Testing
-  - all guesses correct
-  - incorrect -> correct -> incorrect
-  - 
-- Find way to properly end the game rather than waiting for the end for DOM element to show up
-- Link game to automation
-  - if theme is correct, take out words from the game's list & maintain state
-  - if 3 words match a theme, specify prompt / see if the "one away" element can be reached
-  - if incorrect, repeat. 
-- 
-- Use hints provided by site to help LLM find answers 
-  - add to prompt before playing
+
+Running the script will play today's Connections only.
+
+

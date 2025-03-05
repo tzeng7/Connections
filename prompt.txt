@@ -17,7 +17,7 @@ Solution:
 ```json
 {
     "answer": ["burn", "ouch", "snap", "zing"],
-    "reason": ["match the theme \"Comment after an insult\" because these words can be said after an insult."
+    "reason": "match the theme \"Comment after an insult\" because these words can be said after an insult."
 }
 ````
 
@@ -27,7 +27,7 @@ Solution:
 ```json
 {
     "answer": ["slice", "twist", "wedge", "zest"],
-    "reason": ["match the theme \"Bit of citrus garnish\" because these are all different types of citrus garnish."
+    "reason": "match the theme \"Bit of citrus garnish\" because these are all different types of citrus garnish."
 }
 ```
 
@@ -37,9 +37,31 @@ Solution:
 ```json
 {
     "answer": ["foul", "louse", "much", "screw"],
-    "reason": ["match the theme  \"Bungle with 'Up'\" because \"foul up\", \"louse up\", \"muck up\", and \"screw up\" are common phrases that mean \"to ruin something\"."
+    "reason": "match the theme  \"Bungle with 'Up'\" because \"foul up\", \"louse up\", \"muck up\", and \"screw up\" are common phrases that mean \"to ruin something\"."
 }
 ```
+
+# Example 5
+8 words: ["Baggie", "Dash", "Minus", "Barge", "Hyphen", "Comer", "Pisa", "Underscore"]
+Solution:
+```json
+{
+    "answer": ["Baggie", "Barge", "Comer", "Pisa"],
+    "reason": "match the theme  \"Simpson Family Members with First Letter Changed\" because these are all family members in the TV show Simpsons with their first letters in their name changed."
+}
+```
+
+# Example 6
+16 words: ["Dewy", "Mop", "Scrooge", "Supply", "Twist", "Thatch", "Smooth", "Glowing", "Tangle", "Mountain", "Food", "Daisy", "Pip", "Bucket", "Mat", "Fresh"]
+Solution:
+```json
+{
+    "answer": ["Daisy", "Food", "Mountain", "Supply"],
+    "reason": "match the theme  \"___ Chain\" because \"Daisy Chain\", \"Food Chain\", \"Mountain Chain\", and \"Supply Chain\" are all common phrases that go with the word 'Chain'."
+}
+```
+
+
 
 # Input
 Solution:
