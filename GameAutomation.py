@@ -131,17 +131,6 @@ class Connections:
         time.sleep(1)
         return guesses
 
-    # def make_guess(self, prompt):
-    #     guesses = self.answers[self.index]
-    #     self.index += 1
-    #     for guess in guesses:
-    #         path = f"//label[@data-flip-id='{guess}']"
-    #         self.click_element_by_xpath(path)
-    #         time.sleep(.5)
-    #     self.click_element_by_xpath("//button[@data-testid='submit-btn']")
-    #     time.sleep(1)
-    #     return guesses
-
     def play(self):
         self.setup()
         prompt = open("prompt.txt").read()

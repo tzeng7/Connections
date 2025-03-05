@@ -72,8 +72,6 @@ class LLMPrompter:
             ]
         )
 
-        print(response.text)
-
         return set(json.loads(response.text))
 
 

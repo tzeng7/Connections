@@ -8,4 +8,8 @@ themes the game typically uses.
 
 Running the script will play today's Connections only.
 
+```commandline
+Run on GameAutomation.py
+```
+
 
