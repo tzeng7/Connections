@@ -88,7 +88,6 @@ class Connections:
             if one_off.is_displayed():
                 h2 = one_off.find_element(By.TAG_NAME, "h2")
                 return h2.text == "One away..."
-            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
             return False
         except NoSuchElementException as e:
             return False
@@ -136,7 +135,7 @@ class Connections:
         prompt = open("prompt.txt").read()
         prompt += f'\nInput: {list(self.game.words)}'
         while self.game.incorrect < 4 and self.correct < 4:
-            if len(self.game.guesses) >= 6:
+            if self.game.incorrect == 2:
                 self.game.switch_model()
             time.sleep(1)
 
@@ -183,7 +182,6 @@ class Connections:
                 time.sleep(1)
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
-            # self.service.implicitly_wait(5.75)
         time.sleep(5)
         print("Game has ended.")
 

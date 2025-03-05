@@ -29,7 +29,7 @@ class LLMPrompter:
         if self.uses_flash:
             print("Switching to pro")
             self.chat_session = self.client.chats.create(
-                model="gemini-2.0-pro-exp-02-05",
+                model="gemini-2.0-flash",
                 history=self.history
             )
             self.uses_flash = False
