@@ -31,4 +31,6 @@ TODO:
 deepseek api
 claude api
 
+check if gpt, claude correctly maintains state and message history
+
 

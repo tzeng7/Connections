@@ -9,3 +9,7 @@ class Model(ABC):
     @abstractmethod
     def configure(self):
         pass
+
+    @abstractmethod
+    def swap_model(self):
+        pass

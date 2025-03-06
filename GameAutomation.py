@@ -10,6 +10,7 @@ from selenium.common.exceptions import TimeoutException
 from models.ChatGPTAPI import ChatGPTLLMPrompter
 from models.GeminiAPI import GeminiLLMPrompter
 from models.ClaudeAPI import ClaudeLLMPrompter
+from models.DeepseekAPI import DeepseekLLMPrompter
 from Game import Game
 
 
@@ -17,7 +18,7 @@ class Connections:
     def __init__(self):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1)
-        self.game = Game(set(), prompter=ClaudeLLMPrompter())
+        self.game = Game(set(), prompter=DeepseekLLMPrompter())
         self.correct = 0
         # self.answers = answers
         self.index = 0
@@ -184,7 +185,7 @@ class Connections:
                 time.sleep(1)
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
-        time.sleep(6)
+        time.sleep(6.5)
         print("Game has ended.")
 
 
