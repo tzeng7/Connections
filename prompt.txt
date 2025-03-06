@@ -61,7 +61,6 @@ Solution:
 }
 ```
 
-
-
 # Input
 Solution:
+Input: ["Dewy", "Mop", "Scrooge", "Supply", "Twist", "Thatch", "Smooth", "Glowing", "Tangle", "Mountain", "Food", "Daisy", "Pip", "Bucket", "Mat", "Fresh"]
