@@ -15,6 +15,14 @@ the cards that match each word within the guess.
 
 Running the script will play today's Connections only.
 
+## Compare LLM models on how well they can solve Connections
+```commandline
+Deepseek
+Gemini
+ChatGPT
+Claude
+```
+
 ```commandline
 GameAutomation.py
 ```

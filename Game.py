@@ -1,6 +1,6 @@
 import time
 
-from GeminiAPI import LLMPrompter, Answer
+from GeminiAPI import GeminiLLMPrompter, Answer, Model
 from Solution import Solution
 from selenium import webdriver
 
@@ -9,13 +9,11 @@ SOLUTION_LENGTH = 4
 
 class Game:
 
-    def __init__(self, words: set[str]):
+    def __init__(self, words: set[str], prompter: Model):
         self.words = words
         self.guesses = []
         self.incorrect = 0
-        self.prompter = LLMPrompter()
-    def set_words_image(self, image_path: str):
-        self.words = self.prompter.read_image(image_path)
+        self.prompter = prompter
 
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
@@ -39,6 +37,3 @@ class Game:
 
     def switch_model(self):
         self.prompter.swap_model()
-
-
-

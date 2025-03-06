@@ -6,16 +6,12 @@ from dotenv import load_dotenv
 import os
 from google import genai
 from google.genai import types
-from PIL import Image
+
+from Answer import Answer
+from Model import Model
 
 
-class Answer:
-    def __init__(self, answer: list[str], reason: str):
-        self.answer = answer
-        self.reason = reason
-
-
-class LLMPrompter:
+class GeminiLLMPrompter(Model):
     def __init__(self):
         self.configure()
         self.client = genai.Client(api_key=os.getenv("GEMINI_KEY"))
@@ -61,17 +57,3 @@ class LLMPrompter:
 
     def configure(self):
         load_dotenv()
-
-    def read_image(self, image_path):
-
-        response = self.client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=[
-                'Return an array of the strings found in the images squares in a single line.',
-                Image.open(image_path)
-            ]
-        )
-
-        return set(json.loads(response.text))
-
-
