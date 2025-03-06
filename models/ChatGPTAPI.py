@@ -18,9 +18,10 @@ class ChatGPTLLMPrompter(Model):
         self.client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
         self.chat_session = None
         self.history = []
+        self.model = "gpt-4o-mini"
 
     def swap_model(self):
-        pass
+        self.model = "gpt-4o"
 
     def prompt_llm(self, input_prompt: str):
         self.history.append({
@@ -29,7 +30,7 @@ class ChatGPTLLMPrompter(Model):
         })
         self.chat_session = self.client.chat.completions.create(
             messages=self.history,
-            model="gpt-4o-mini",
+            model=self.model,
             response_format={
                 "type": "json_schema",
                 "json_schema": {
