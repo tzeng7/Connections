@@ -1,8 +1,7 @@
-import time
 
-from GeminiAPI import GeminiLLMPrompter, Answer, Model
-from Solution import Solution
-from selenium import webdriver
+from helpers.Answer import Answer
+from helpers.Model import Model
+
 
 SOLUTION_LENGTH = 4
 

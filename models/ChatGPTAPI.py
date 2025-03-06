@@ -6,9 +6,10 @@ import os
 from pydantic import BaseModel
 from openai.types.chat import ChatCompletionMessageParam
 
-from Answer import Answer
-from Model import Model
+from helpers.Answer import Answer
+from helpers.Model import Model
 from openai import OpenAI
+
 
 class ChatGPTLLMPrompter(Model):
 
@@ -17,6 +18,9 @@ class ChatGPTLLMPrompter(Model):
         self.client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
         self.chat_session = None
         self.history = []
+
+    def swap_model(self):
+        pass
 
     def prompt_llm(self, input_prompt: str):
         self.history.append({
@@ -49,7 +53,6 @@ class ChatGPTLLMPrompter(Model):
         )
         response = self.chat_session.choices[0].message.content
 
-        # json_text = re.findall("```json\n((.|\n)*)\n```", response.a)[0][0]
         json_text_answer = Answer(**json.loads(response))
 
         self.history.append({
@@ -57,7 +60,7 @@ class ChatGPTLLMPrompter(Model):
             "content": response
         })
 
-        return json_text_answer.answer
+        return json_text_answer
 
     def configure(self):
         load_dotenv()

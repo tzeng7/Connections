@@ -27,4 +27,9 @@ Claude
 GameAutomation.py
 ```
 
+TODO:
+find out how to swap model openai
+deepseek api
+claude api
+
 

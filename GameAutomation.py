@@ -7,6 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
 from selenium.common.exceptions import TimeoutException
+from models.ChatGPTAPI import ChatGPTLLMPrompter
+from models.GeminiAPI import GeminiLLMPrompter
 from Game import Game
 
 
@@ -14,7 +16,7 @@ class Connections:
     def __init__(self):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1)
-        self.game = Game(set())
+        self.game = Game(set(), prompter=ChatGPTLLMPrompter())
         self.correct = 0
         # self.answers = answers
         self.index = 0
@@ -100,7 +102,6 @@ class Connections:
             self.correct = new_correct
             return True
         return False
-        # update game words list
 
     def setup(self):
         self.service.get("https://www.nytimes.com/games/connections")

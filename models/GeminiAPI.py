@@ -7,8 +7,8 @@ import os
 from google import genai
 from google.genai import types
 
-from Answer import Answer
-from Model import Model
+from helpers.Answer import Answer
+from helpers.Model import Model
 
 
 class GeminiLLMPrompter(Model):
