@@ -26,7 +26,6 @@ class Game:
         self.guesses.append(guess)
 
     def make_guess(self, prompt: str):
-        # prompt = open("prompt.txt").read()
         answer = set(self.run_prompt(prompt).answer)
         print(answer)
         return answer

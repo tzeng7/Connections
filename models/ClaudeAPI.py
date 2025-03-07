@@ -9,6 +9,7 @@ import re
 
 MAX_TOKENS = 8192
 
+system_prompt = open("system_prompt.txt").read()
 
 class ClaudeLLMPrompter(Model):
     def __init__(self):
@@ -31,7 +32,7 @@ class ClaudeLLMPrompter(Model):
 
         response = self.client.messages.create(
             model=self.model,
-            system="Provide exactly one answer without any alternatives or discussing options. Return in JSON format starting with ```json```",
+            system=f"Provide exactly one answer without any alternatives or discussing options. Output in JSON format highlighted by ```json ```\n {system_prompt}",
             messages=self.history,
             max_tokens=MAX_TOKENS
         )

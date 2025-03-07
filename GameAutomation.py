@@ -185,22 +185,27 @@ class Connections:
                 self.click_element_by_xpath("//button[@data-testid='deselect-btn']")
             self.game.add_guess(answer)
         time.sleep(6.5)
-        print("Game has ended.")
+        print(f"Game has ended.")
 
-
-def run(m):
-    automated_connections_run = Connections(m)
-    automated_connections_run.play()
-
-
-if __name__ == '__main__':
-    models = [ChatGPTLLMPrompter, GeminiLLMPrompter, DeepseekLLMPrompter, ClaudeLLMPrompter]
-    processes = []
-
-    for model in models:
-        p = multiprocessing.Process(target=run, args=(model,))
-        p.start()
-        processes.append(p)
-
-    for p in processes:
-        p.join()
+Connections(ClaudeLLMPrompter).play()
+# def run(m, name):
+#     automated_connections_run = Connections(m)
+#     automated_connections_run.play()
+#
+#
+# if __name__ == '__main__':
+#     models = {
+#         "ChatGPT": ChatGPTLLMPrompter,
+#         "Gemini": GeminiLLMPrompter,
+#         "Claude": ClaudeLLMPrompter,
+#         "Deepseek": DeepseekLLMPrompter
+#     }
+#     processes = []
+#
+#     for name, model in models.items():
+#         p = multiprocessing.Process(target=run, args=(model, name), name=name)
+#         p.start()
+#         processes.append(p)
+#
+#     for p in processes:
+#         p.join()

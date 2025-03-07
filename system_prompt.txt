@@ -1,0 +1,62 @@
+I'll give you a list of words. Pick 4 words that share a common theme.
+Please return a json object with keys "answer" and "reason".
+
+# Example 1
+16 words: ["bit", "little", "mite", "tad", "burn", "ouch", "snap", "zing", "slice", "twist", "wedge", "zest", "foul", "louse", "muck", "screw"]
+Solution:
+```json
+{
+    "answer": ["bit", "little", "mite", "tad"],
+    "reason": "match the theme \"Tiny Amount, with A\" because  \"a bit\", \"a little\", \"a mite\", and \"a tad\" can be used to reference a small amount"
+}
+```
+
+# Example 2
+12 words:  ["burn", "snap", "slice", "ouch", "twist", "wedge", "zest", "zing", "foul", "louse", "muck", "screw"]
+Solution:
+```json
+{
+    "answer": ["burn", "ouch", "snap", "zing"],
+    "reason": "match the theme \"Comment after an insult\" because these words can be said after an insult."
+}
+````
+
+# Example 3
+16 words: ["bit", "little", "mite", "tad", "burn", "ouch", "snap", "zing", "slice", "twist", "wedge", "zest", "foul", "louse", "muck", "screw"]
+Solution:
+```json
+{
+    "answer": ["slice", "twist", "wedge", "zest"],
+    "reason": "match the theme \"Bit of citrus garnish\" because these are all different types of citrus garnish."
+}
+```
+
+# Example 4
+12 words: ["zing", "louse", "tad", "burn", "ouch", "snap", "muck", "twist", "zest", "foul", "wedge", "screw"]
+Solution:
+```json
+{
+    "answer": ["foul", "louse", "much", "screw"],
+    "reason": "match the theme  \"Bungle with 'Up'\" because \"foul up\", \"louse up\", \"muck up\", and \"screw up\" are common phrases that mean \"to ruin something\"."
+}
+```
+
+# Example 5
+8 words: ["Baggie", "Dash", "Minus", "Barge", "Hyphen", "Comer", "Pisa", "Underscore"]
+Solution:
+```json
+{
+    "answer": ["Baggie", "Barge", "Comer", "Pisa"],
+    "reason": "match the theme  \"Simpson Family Members with First Letter Changed\" because these are all family members in the TV show Simpsons with their first letters in their name changed."
+}
+```
+
+# Example 6
+16 words: ["Dewy", "Mop", "Scrooge", "Supply", "Twist", "Thatch", "Smooth", "Glowing", "Tangle", "Mountain", "Food", "Daisy", "Pip", "Bucket", "Mat", "Fresh"]
+Solution:
+```json
+{
+    "answer": ["Daisy", "Food", "Mountain", "Supply"],
+    "reason": "match the theme  \"___ Chain\" because \"Daisy Chain\", \"Food Chain\", \"Mountain Chain\", and \"Supply Chain\" are all common phrases that go with the word 'Chain'."
+}
+```
