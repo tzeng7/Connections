@@ -12,13 +12,14 @@ from models.GeminiAPI import GeminiLLMPrompter
 from models.ClaudeAPI import ClaudeLLMPrompter
 from models.DeepseekAPI import DeepseekLLMPrompter
 from Game import Game
+import multiprocessing
 
 
 class Connections:
-    def __init__(self):
+    def __init__(self, model):
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1)
-        self.game = Game(set(), prompter=DeepseekLLMPrompter())
+        self.game = Game(set(), prompter=model())
         self.correct = 0
         # self.answers = answers
         self.index = 0
@@ -31,11 +32,10 @@ class Connections:
             if one_off.is_displayed():
                 h2 = one_off.find_element(By.TAG_NAME, "h2")
                 return h2.text in options
-            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
             return False
-        except NoSuchElementException as e:
+        except NoSuchElementException:
             return False
-        except TimeoutException as e:
+        except TimeoutException:
             return False
 
     def has_ended_incorrect(self):
@@ -46,7 +46,6 @@ class Connections:
             if one_off.is_displayed():
                 h2 = one_off.find_element(By.TAG_NAME, "h2")
                 return h2.text == "Next Time"
-            # one_off = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "Toast-module_toast__YAoDa")))
             return False
         except NoSuchElementException as e:
             return False
@@ -189,4 +188,19 @@ class Connections:
         print("Game has ended.")
 
 
-Connections().play()
+def run(m):
+    automated_connections_run = Connections(m)
+    automated_connections_run.play()
+
+
+if __name__ == '__main__':
+    models = [ChatGPTLLMPrompter, GeminiLLMPrompter, DeepseekLLMPrompter, ClaudeLLMPrompter]
+    processes = []
+
+    for model in models:
+        p = multiprocessing.Process(target=run, args=(model,))
+        p.start()
+        processes.append(p)
+
+    for p in processes:
+        p.join()

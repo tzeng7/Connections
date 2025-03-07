@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import json
 import re
 
+
 class DeepseekLLMPrompter(Model):
     def __init__(self):
         self.configure()
@@ -22,6 +23,7 @@ class DeepseekLLMPrompter(Model):
 
     def swap_model(self):
         pass
+
     def prompt_llm(self, input_prompt: str):
         self.history.append({
             "role": "user",
@@ -43,4 +45,3 @@ class DeepseekLLMPrompter(Model):
 
     def configure(self):
         load_dotenv()
-

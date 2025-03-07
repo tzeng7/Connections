@@ -1,12 +1,13 @@
 # Connections
 
-LLM wrapper to use Google's Gemini API to play NYT Connections where users
+LLM wrapper to use and compare different LLM models to play NYT Connections where users
 are tasked to match 16 unique words to 4 themes. The LLM will be prompted based on a history
 of pre-existing Connections themes to give it an idea of what type of matches or 
 themes the game typically uses.
 
-The game is currently run on Gemini 2.0 Flash model as there were worries of resource
-exhaustion if I used a more well-trained model such as Gemini 2.0 Pro. For now,
+The game is currently run on four different LLM models. Due to concerns on
+resource exhaustion or rate limits, the games will be performed on the least trained
+variants for each model and will switch to a more trained version as the game stalls. For now,
 when the model guesses matches incorrectly twice, the model will swap to the Pro model
 with the prexisting chat history for it to work on.
 
@@ -28,9 +29,7 @@ GameAutomation.py
 ```
 
 TODO:
-deepseek api
-claude api
-
+Multi-processing - display which model the automation is operating on
 check if gpt, claude correctly maintains state and message history
 
 

@@ -67,6 +67,3 @@ class ChatGPTLLMPrompter(Model):
         load_dotenv()
         return os.getenv("OPENAI_KEY")
 
-
-prompt = open("prompt.txt").read()
-print(ChatGPTLLMPrompter().prompt_llm(prompt))
