@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
 from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import ElementClickInterceptedException
 from models.ChatGPTAPI import ChatGPTLLMPrompter
 from models.GeminiAPI import GeminiLLMPrompter
 from models.ClaudeAPI import ClaudeLLMPrompter
@@ -19,10 +18,9 @@ import multiprocessing
 class Connections:
     def __init__(self, model):
         self.service = webdriver.Chrome()
-        self.wait = WebDriverWait(self.service, timeout=1)
+        self.wait = WebDriverWait(self.service, timeout=1.5)
         self.game = Game(set(), prompter=model())
         self.correct = 0
-        # self.answers = answers
         self.index = 0
 
     def has_won(self):
@@ -56,18 +54,26 @@ class Connections:
 
     def click_element_by_class_name(self, class_name):
         try:
-            button = self.service.find_element(By.CLASS_NAME, class_name)
-            self.wait.until(lambda _: EC.element_to_be_clickable(button))
+            # button = self.service.find_element(By.CLASS_NAME, class_name)
+            # self.wait.until(lambda _: EC.element_to_be_clickable(button))
+            button = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, class_name)))
+            self.wait.until(EC.visibility_of(button))
+            self.wait.until(EC.element_to_be_clickable(button))
             button.click()
         except NoSuchElementException as e:
             print(e.msg)
+            return
+        except InvalidSelectorException as e:
+            print(e)
             return
 
 
     def click_element_by_xpath(self, path):
         try:
-            card = self.service.find_element(By.XPATH, path)
-            self.wait.until(lambda _: EC.element_to_be_clickable(card))
+            card = self.wait.until(EC.presence_of_element_located((By.XPATH, path)))
+            print(card)
+            self.wait.until(EC.visibility_of(card))
+            self.wait.until(EC.element_to_be_clickable(card))
             card.click()
             return card
         except NoSuchElementException as e:
@@ -107,14 +113,21 @@ class Connections:
             return True
         return False
 
+    # progression: terms -> play -> play game
     def setup(self):
         self.service.get("https://www.nytimes.com/games/connections")
-        # progression: terms -> play -> play game
+
+        # continue button on terms & service
         self.click_element_by_class_name("purr-blocker-card__button")
+
+        time.sleep(1)
+        # play button
         self.click_element_by_class_name("pz-moment__button")
 
         self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "Card-module_label__U_Q2H")))
         cards = self.service.find_elements(By.CLASS_NAME, "Card-module_label__U_Q2H")
+
+        # get card texts for the input array
         card_texts = [card.text for card in cards]
         self.game.words = card_texts
 
@@ -147,6 +160,7 @@ class Connections:
             answer = self.make_guess(prompt)
             if answer not in self.game.guesses:
                 time.sleep(1)
+                # check one away first due to time-sensitive one away messaging
                 if self.shows_one_off():
                     self.game.increment_incorrect()
                     print(f'{answer} is almost correct.')
@@ -189,25 +203,20 @@ class Connections:
         time.sleep(6.5)
         print(f"Game has ended.")
 
-Connections(ClaudeLLMPrompter).play()
-# def run(m, name):
-#     automated_connections_run = Connections(m)
-#     automated_connections_run.play()
-#
-#
-# if __name__ == '__main__':
-#     models = {
-#         "ChatGPT": ChatGPTLLMPrompter,
-#         "Gemini": GeminiLLMPrompter,
-#         "Claude": ClaudeLLMPrompter,
-#         "Deepseek": DeepseekLLMPrompter
-#     }
-#     processes = []
-#
-#     for name, model in models.items():
-#         p = multiprocessing.Process(target=run, args=(model, name), name=name)
-#         p.start()
-#         processes.append(p)
-#
-#     for p in processes:
-#         p.join()
+Connections(ChatGPTLLMPrompter).play()
+def run(m):
+    automated_connections_run = Connections(m)
+    automated_connections_run.play()
+
+
+if __name__ == '__main__':
+    models = [
+        ChatGPTLLMPrompter,
+        GeminiLLMPrompter,
+        ClaudeLLMPrompter,
+        DeepseekLLMPrompter
+    ]
+    processes = []
+
+    for model in models:
+        run(model)
