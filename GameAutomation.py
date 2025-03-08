@@ -203,7 +203,6 @@ class Connections:
         time.sleep(6.5)
         print(f"Game has ended.")
 
-Connections(ChatGPTLLMPrompter).play()
 def run(m):
     automated_connections_run = Connections(m)
     automated_connections_run.play()
