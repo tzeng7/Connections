@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import ElementClickInterceptedException
 from models.ChatGPTAPI import ChatGPTLLMPrompter
 from models.GeminiAPI import GeminiLLMPrompter
 from models.ClaudeAPI import ClaudeLLMPrompter
@@ -38,6 +39,7 @@ class Connections:
         except TimeoutException:
             return False
 
+
     def has_ended_incorrect(self):
         print("Ended Incorrect")
         try:
@@ -55,11 +57,12 @@ class Connections:
     def click_element_by_class_name(self, class_name):
         try:
             button = self.service.find_element(By.CLASS_NAME, class_name)
-            self.wait.until(lambda _: button.is_displayed())
+            self.wait.until(lambda _: EC.element_to_be_clickable(button))
             button.click()
         except NoSuchElementException as e:
             print(e.msg)
             return
+
 
     def click_element_by_xpath(self, path):
         try:
@@ -106,7 +109,6 @@ class Connections:
 
     def setup(self):
         self.service.get("https://www.nytimes.com/games/connections")
-
         # progression: terms -> play -> play game
         self.click_element_by_class_name("purr-blocker-card__button")
         self.click_element_by_class_name("pz-moment__button")
