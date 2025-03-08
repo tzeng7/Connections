@@ -217,5 +217,5 @@ if __name__ == '__main__':
     ]
     processes = []
 
-    for model in models:
-        run(model)
+    for m in models:
+        run(m)
