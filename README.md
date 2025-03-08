@@ -29,7 +29,4 @@ GameAutomation.py
 ```
 
 TODO:
-Multi-processing - display which model the automation is operating on
-check if gpt, claude correctly maintains state and message history
-
-
+game too hard for models?
