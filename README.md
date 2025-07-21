@@ -29,4 +29,5 @@ GameAutomation.py
 ```
 
 TODO:
-game too hard for models?
+
+Benchmark models using connections archive
