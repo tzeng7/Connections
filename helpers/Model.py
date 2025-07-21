@@ -13,3 +13,7 @@ class Model(ABC):
     @abstractmethod
     def swap_model(self):
         pass
+
+    @abstractmethod
+    def to_string(self):
+        pass

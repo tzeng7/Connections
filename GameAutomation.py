@@ -1,5 +1,6 @@
 import time
 
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -7,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
 from models.ChatGPTAPI import ChatGPTLLMPrompter
 from models.GeminiAPI import GeminiLLMPrompter
 from models.ClaudeAPI import ClaudeLLMPrompter
@@ -17,6 +19,7 @@ import multiprocessing
 
 class Connections:
     def __init__(self, model):
+        
         self.service = webdriver.Chrome()
         self.wait = WebDriverWait(self.service, timeout=1.5)
         self.game = Game(set(), prompter=model())
@@ -36,7 +39,6 @@ class Connections:
             return False
         except TimeoutException:
             return False
-
 
     def has_ended_incorrect(self):
         print("Ended Incorrect")
@@ -66,7 +68,6 @@ class Connections:
         except InvalidSelectorException as e:
             print(e)
             return
-
 
     def click_element_by_xpath(self, path):
         try:
@@ -118,9 +119,9 @@ class Connections:
         self.service.get("https://www.nytimes.com/games/connections")
 
         # continue button on terms & service
-        self.click_element_by_class_name("purr-blocker-card__button")
+        # self.click_element_by_class_name("purr-blocker-card__button")
 
-        time.sleep(1)
+        # time.sleep(1)
         # play button
         self.click_element_by_class_name("pz-moment__button")
 
@@ -203,10 +204,10 @@ class Connections:
         time.sleep(6.5)
         print(f"Game has ended.")
 
+
 def run(m):
     automated_connections_run = Connections(m)
     automated_connections_run.play()
-
 
 if __name__ == '__main__':
     models = [

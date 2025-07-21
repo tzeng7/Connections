@@ -67,3 +67,6 @@ class ChatGPTLLMPrompter(Model):
         load_dotenv()
         return os.getenv("OPENAI_KEY")
 
+    def to_string(self):
+        return "ChatGPT"
+

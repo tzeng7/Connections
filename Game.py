@@ -16,6 +16,7 @@ class Game:
 
     def run_prompt(self, prompt: str) -> Answer:
         answer = self.prompter.prompt_llm(prompt)
+        print(answer.reason)
         return answer
 
     def remove_guess_from_words(self, guess: set[str]):

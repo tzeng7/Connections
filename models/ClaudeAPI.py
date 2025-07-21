@@ -21,6 +21,7 @@ class ClaudeLLMPrompter(Model):
         self.model = "claude-3-5-haiku-20241022"  # claude-3-7-sonnet-20250219
         self.history = []
 
+
     def swap_model(self):
         self.model = "claude-3-7-sonnet-20250219"
 
@@ -54,4 +55,7 @@ class ClaudeLLMPrompter(Model):
 
     def configure(self):
         load_dotenv()
+
+    def to_string(self):
+        return "Claude"
 

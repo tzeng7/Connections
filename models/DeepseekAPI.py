@@ -52,3 +52,6 @@ class DeepseekLLMPrompter(Model):
 
     def configure(self):
         load_dotenv()
+
+    def to_string(self):
+        return "DeepSeek"
