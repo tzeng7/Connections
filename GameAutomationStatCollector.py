@@ -225,6 +225,6 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    for i in range(4, 51):
+    for i in range(7, 51):
         automated_connections_run.play(i)
 run(DeepseekLLMPrompter)

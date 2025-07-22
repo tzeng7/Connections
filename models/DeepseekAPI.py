@@ -20,7 +20,7 @@ class DeepseekLLMPrompter(Model):
             base_url="https://api.deepseek.com"
         )
         self.history = [{
-            "role": "system",
+            "role": "user",
             "content": system_prompt
         }]
         self.model = "deepseek-chat"
@@ -41,6 +41,7 @@ class DeepseekLLMPrompter(Model):
         )
 
         json_text = re.findall("```json\n((.|\n)*)\n```", response.choices[0].message.content)
+        print(json_text)
         json_text_answer = Answer(**json.loads(json_text[0][0]))
         self.history.append({
             "role": "assistant",

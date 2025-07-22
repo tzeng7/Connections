@@ -1,5 +1,5 @@
 I'll give you a list of words. Pick 4 words that share a common theme.
-Please return a json object with keys "answer" and "reason".
+Please return only one json object with keys "answer" and "reason". 
 
 # Example 1
 16 words: ["bit", "little", "mite", "tad", "burn", "ouch", "snap", "zing", "slice", "twist", "wedge", "zest", "foul", "louse", "muck", "screw"]
