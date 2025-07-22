@@ -23,7 +23,7 @@ class GameAutomationStatCollector():
         chrome_options = Options()
         # Add uBlock Origin extension for ad blocking
         chrome_options.add_extension("./ublock.crx")
-        chrome_options.add_argument("--disable-popup-blocking")
+        chrome_options.add_argument("--block-new-web-contents")  # Block popups
 
         
         # # Additional options to improve ad blocking and performance
@@ -55,6 +55,9 @@ class GameAutomationStatCollector():
             self.wait.until(EC.visibility_of(button))
             self.wait.until(EC.element_to_be_clickable(button))
             button.click()
+        except TimeoutException as e:
+            print(f"Timeout waiting for element: {e}")
+            return
         except NoSuchElementException as e:
             print(e.msg)
             return
@@ -71,6 +74,9 @@ class GameAutomationStatCollector():
             self.wait.until(EC.element_to_be_clickable(card))
             card.click()
             return card
+        except TimeoutException as e:
+            print(f"Timeout waiting for element: {e}")
+            return
         except NoSuchElementException as e:
             print(e)
             return
@@ -219,6 +225,6 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    for i in range(8, 770):
+    for i in range(4, 51):
         automated_connections_run.play(i)
-run(ChatGPTLLMPrompter)
+run(DeepseekLLMPrompter)
