@@ -19,7 +19,25 @@ import multiprocessing
 
 class GameAutomationStatCollector():
     def __init__(self, model):
-        self.service = webdriver.Chrome()
+        
+        chrome_options = Options()
+        # Add uBlock Origin extension for ad blocking
+        chrome_options.add_extension("./ublock.crx")
+        chrome_options.add_argument("--disable-popup-blocking")
+
+        
+        # # Additional options to improve ad blocking and performance
+        # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        # chrome_options.add_experimental_option('useAutomationExtension', False)
+        # chrome_options.add_argument("--disable-web-security")
+        # chrome_options.add_argument("--disable-features=VizDisplayCompositor")
+        # chrome_options.add_argument("--disable-extensions-except=./ublock.crx")
+        # chrome_options.add_argument("--load-extension=./ublock.crx")
+        
+        self.service = webdriver.Chrome(options=chrome_options)
+        # Execute script to hide webdriver property
+        self.service.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         self.wait = WebDriverWait(self.service, timeout=1.5)
         self.game = Game(set(), prompter=model())
         self.correct = 0
@@ -63,9 +81,10 @@ class GameAutomationStatCollector():
 
 #
     def setup(self, number):
+        
         self.service.get(f"https://connectionsplus.io/game/{number}")
-
-
+        
+        self.game.reset_game_state()
         self.wait.until(EC.visibility_of_element_located(
             (By.CLASS_NAME, "css-butdwn")))
         cards = self.service.find_elements(
@@ -131,6 +150,10 @@ class GameAutomationStatCollector():
             return False
     
     def play(self, num):
+        # Reset game state for new game
+        self.game.reset_game_state()
+        self.correct = 0
+        
         self.setup(num)
         prompt = open("prompt.txt").read()
         prompt += f'\nInput: {list(self.game.words)}'
@@ -196,6 +219,6 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    for i in range(2, 770):
+    for i in range(8, 770):
         automated_connections_run.play(i)
 run(ChatGPTLLMPrompter)

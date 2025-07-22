@@ -36,3 +36,9 @@ class Game:
 
     def switch_model(self):
         self.prompter.swap_model()
+    
+    def reset_game_state(self):
+        """Reset game state for a new game"""
+        self.words = set()
+        self.guesses = []
+        self.incorrect = 0
