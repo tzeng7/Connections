@@ -208,7 +208,6 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    for i in range(14, 51):
-        automated_connections_run.play(i)
-        time.sleep(10)
+    automated_connections_run.play(3)
+    automated_connections_run.play(30)
 run(ClaudeLLMPrompter)
