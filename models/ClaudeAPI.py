@@ -41,7 +41,10 @@ class ClaudeLLMPrompter(Model):
         )
         text_answer = "".join([block.text for block in response.content if block.type == "text"])
         print(text_answer)
-        json_text = re.findall("```json\n((.|\n)*)\n```", text_answer)[0][0]
+        # json_text = re.findall("```json\n((.|\n)*)\n```", text_answer)[0][0]
+        json_text = re.findall(r"```json\s*\n?(.*?)\n?\s*```", text_answer, re.DOTALL)[0]
+
+        print(json_text)
         # print(json_text)
 
         json_text_answer = Answer(**json.loads(json_text))

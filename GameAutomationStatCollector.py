@@ -21,23 +21,9 @@ class GameAutomationStatCollector():
     def __init__(self, model):
         
         chrome_options = Options()
-        # Add uBlock Origin extension for ad blocking
         chrome_options.add_extension("./ublock.crx")
-        chrome_options.add_argument("--block-new-web-contents")  # Block popups
-
-        
-        # # Additional options to improve ad blocking and performance
-        # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-        # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        # chrome_options.add_experimental_option('useAutomationExtension', False)
-        # chrome_options.add_argument("--disable-web-security")
-        # chrome_options.add_argument("--disable-features=VizDisplayCompositor")
-        # chrome_options.add_argument("--disable-extensions-except=./ublock.crx")
-        # chrome_options.add_argument("--load-extension=./ublock.crx")
         
         self.service = webdriver.Chrome(options=chrome_options)
-        # Execute script to hide webdriver property
-        self.service.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         self.wait = WebDriverWait(self.service, timeout=1.5)
         self.game = Game(set(), prompter=model())
         self.correct = 0
@@ -55,9 +41,6 @@ class GameAutomationStatCollector():
             self.wait.until(EC.visibility_of(button))
             self.wait.until(EC.element_to_be_clickable(button))
             button.click()
-        except TimeoutException as e:
-            print(f"Timeout waiting for element: {e}")
-            return
         except NoSuchElementException as e:
             print(e.msg)
             return
@@ -69,13 +52,14 @@ class GameAutomationStatCollector():
         try:
             card = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, path)))
-            print(card)
+            print("HTML Element:", card.get_attribute("outerHTML"))
+            
             self.wait.until(EC.visibility_of(card))
             self.wait.until(EC.element_to_be_clickable(card))
             card.click()
             return card
         except TimeoutException as e:
-            print(f"Timeout waiting for element: {e}")
+            print(e)
             return
         except NoSuchElementException as e:
             print(e)
@@ -209,7 +193,7 @@ class GameAutomationStatCollector():
             else:
                 prompt = f'''You have tried this combination before. Pick a different combination of four words that share a common theme. Return a json object with keys "answer" and "reason"
                         \nInput: {list(self.game.words)}
-                        \nSolution:
+                        \nSolution: 
                         '''
                 time.sleep(1)
                 self.click_element_by_xpath(
@@ -225,6 +209,5 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    for i in range(7, 51):
-        automated_connections_run.play(i)
+    automated_connections_run.play(2)
 run(DeepseekLLMPrompter)

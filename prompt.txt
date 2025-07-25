@@ -1,5 +1,13 @@
 I'll give you a list of words. Pick 4 words that share a common theme.
-Please return only one json object with keys "answer" and "reason". 
+Please return a json object with keys "answer" and "reason".  
+Please do not correct yourself if you realize something was wrong.
+
+CRITICAL FORMATTING REQUIREMENT: You must ALWAYS wrap your JSON response in code blocks. Your response must start with ```json and end with ```. Never respond with raw JSON without the code block markers.
+
+REQUIRED FORMAT:
+```json
+{JSON object here}
+```
 
 # Example 1
 16 words: ["bit", "little", "mite", "tad", "burn", "ouch", "snap", "zing", "slice", "twist", "wedge", "zest", "foul", "louse", "muck", "screw"]
@@ -63,3 +71,11 @@ Solution:
 
 # Input
 Solution:
+```json
+{
+    "answer":,
+    "reason":
+}
+```
+
+REMEMBER: Your response must be ONLY a JSON code block using ```json formatting. No additional text before or after the code block.
