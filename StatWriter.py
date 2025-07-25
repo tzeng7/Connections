@@ -38,3 +38,4 @@ class StatWriter:
             writer.writerow([model, guesses, outcome, total_guesses])
         
         print(f"Game stats written to {self.csv_file_path}: {model} - {outcome} ({total_guesses} guesses)")
+    

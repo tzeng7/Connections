@@ -40,24 +40,11 @@ class ClaudeLLMPrompter(Model):
         )
         text_answer = "".join([block.text for block in response.content if block.type == "text"])
         print(text_answer)
-        
-        # Try to extract JSON from code blocks first
-        json_matches = re.findall(r"```json\s*\n?(.*?)\n?\s*```", text_answer, re.DOTALL)
-        
-        if json_matches:
-            # Found JSON in code blocks
-            json_text = json_matches[0]
-        else:
-            # No code blocks found, try to extract raw JSON
-            # Look for JSON object pattern starting with { and ending with }
-            json_matches = re.findall(r'(\{[^{}]*"answer"[^{}]*"reason"[^{}]*\})', text_answer, re.DOTALL)
-            if json_matches:
-                json_text = json_matches[0]
-            else:
-                # Fallback: assume the entire response is JSON
-                json_text = text_answer.strip()
+        # json_text = re.findall("```json\n((.|\n)*)\n```", text_answer)[0][0]
+        json_text = re.findall(r"```json\s*\n?(.*?)\n?\s*```", text_answer, re.DOTALL)[0]
 
-        print("Extracted JSON:", json_text)
+        print(json_text)
+        # print(json_text)
 
         json_text_answer = Answer(**json.loads(json_text))
 

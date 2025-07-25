@@ -1,0 +1,5 @@
+Model,Total_Games,Wins,Losses,Win_Rate_Percent,Avg_Guesses_When_Won,Wins_4_Guesses,Wins_5_Guesses,Wins_6_Guesses,Wins_7_Guesses,Wins_8_Guesses,Wins_9_Guesses,Wins_10_Guesses
+Gemini,50,41,9,82.0,4.22,33,7,1,0,0,0,0
+ChatGPT,50,31,19,62.0,5.35,10,9,7,2,2,1,0
+Claude,50,29,21,58.0,4.9,14,8,3,4,0,0,0
+DeepSeek,50,25,25,50.0,5.8,7,5,6,3,2,1,1

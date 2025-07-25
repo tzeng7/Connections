@@ -28,6 +28,10 @@ Claude
 GameAutomation.py
 ```
 
-TODO:
+# Stats Collection
 
-Benchmark models using connections archive
+*connections_stats.csv* and *total_statistics.csv* hold the statistics for each LLM for the first 50 connections games in the Connections archive. This is used to benchmark how well each LLM can play the game and match words to a specific theme. 
+
+*connections_stats.csv* shows each LLMs progression through each game and each individual guess that the model made. 
+
+*total_statistics.csv* shows the total stats for each model.

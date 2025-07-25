@@ -150,7 +150,7 @@ Gemini,"[{'BIOLOGICAL', 'CUCKOO', 'GRANDFATHER', 'ALARM'}, {'DONALD', 'SCROOGE',
 Gemini,"[{'TEMPERA', 'OIL', 'WATERCOLOR', 'ACRYLIC'}, {'SAMOSA', 'FALAFEL', 'KATSU', 'SCHNITZEL'}, {'INCH', 'YARD', 'FOOT', 'MILE'}, {'PEN', 'NICK', 'DIM', 'QUART'}]",won,4
 Claude,"[{'RACECAR', 'KAYAK', 'LEVEL', 'MOM'}, {'SLEET', 'SNOW', 'RAIN', 'HAIL'}, {'OPTION', 'TAB', 'RETURN', 'SHIFT'}, {'BUCKS', 'HEAT', 'NETS', 'JAZZ'}]",won,4
 Claude,"[{'MILE', 'FOOT', 'YARD', 'LEAGUE'}, {'LOAFER', 'PUMP', 'SNEAKER', 'BOOT'}, {'US', 'PEOPLE', 'ARE', 'WHY'}, {'TIME', 'QUEUE', 'SEA', 'ESSENCE'}, {'TIME', 'QUEUE', 'PEOPLE', 'ESSENCE'}]",lost,5
-Claude,"[{'PIT', 'POM', 'CHOW', 'PEKE'}, {'POM', 'LAB', 'CHOW', 'PEKE'}, {'PIT', 'LAB', 'CHOW', 'PEKE'}]",lost,3
+Claude,"[{'POM', 'PEKE', 'KING', 'WOLF'}, {'NOSE', 'CHEEK', 'MOUTH', 'EYE'}, {'CHOW', 'PEKE', 'POM', 'WOLF'}, {'STOOGE', 'AMIGO', 'TENOR', 'KING'}, {'CHOW', 'WOLF', 'PEKE', 'LAB'}, {'CHOW', 'SCARF', 'GOBBLE', 'POM'}]",lost,6
 Claude,"[{'PUMA', 'ADIDAS', 'REEBOK', 'NIKE'}, {'SWEEP', 'VACUUM', 'MOP', 'DUST'}, {'CHICAGO', 'CAROUSEL', 'CATS', 'CABARET'}, {'IRON', 'SPIDER', 'SUPER', 'BAT'}]",won,4
 Claude,"[{'KETCHUP', 'MAYO', 'RELISH', 'MUSTARD'}, {'TARTAR', 'KETCHUP', 'MAYO', 'MUSTARD'}, {'TARTAR', 'KETCHUP', 'RELISH', 'MUSTARD'}, {'KETCHUP', 'MAYO', 'RELISH', 'MUSTARD'}]",lost,4
 Claude,"[{'JAIL', 'CHANCE', 'GO', 'BOARDWALK'}, {'Q-TIP', 'WONDER', 'ICE CUBE', 'COMMON'}, {'FUTURE', 'Q-TIP', 'ICE CUBE', 'COMMON'}, {'ROYAL', 'WONDER', 'SEA', 'MIDNIGHT'}, {'ROYAL', 'SISTER', 'WONDER', 'BABY'}, {'ROYAL', 'SEA', 'MIDNIGHT', 'POWDER'}]",lost,6
@@ -177,7 +177,7 @@ Claude,"[{'HOLLAND', 'GREECE', 'POLAND', 'PORTUGAL'}, {'HOLLAND', 'GREECE', 'POL
 Claude,"[{'KIDNEY', 'HEART', 'LIVER', 'SPINE'}, {'KIDNEY', 'LUNG', 'HEART', 'LIVER'}, {'FEDORA', 'BERET', 'BOWLER', 'FEZ'}, {'JACKET', 'COVER', 'SPINE', 'PAGE'}, {'ASS', 'RABBIT', 'POT', 'KNIFE'}]",won,5
 Claude,"[{'PINEAPPLE', 'BANANA', 'MANGO', 'COCONUT'}, {'TIFF', 'ZIP', 'DOC', 'PDF'}, {'ZIP', 'TIFF', 'GIF', 'PDF'}, {'KIWI', 'EMU', 'PENGUIN', 'OSTRICH'}, {'GRUMPY', 'BASHFUL', 'DOC', 'HAPPY'}]",won,5
 Claude,"[{'MULTIPLY', 'SUBTRACT', 'ADD', 'DIVIDE'}, {'MOTH', 'WASP', 'GNAT', 'FLY'}, {'TANG', 'TETRA', 'SOLE', 'SKATE'}, {'LAP', 'COOL', 'COPY', 'ALLEY'}]",won,4
-Claude,"[{'KNEE', 'HIP', 'ELBOW', 'SHOULDER'}, {'COWBOY', 'BRONCO', 'OKLAHOMA', 'PACKER'}, {'COWBOY', 'RAVEN', 'BRONCO', 'OKLAHOMA'}]",lost,3
+Claude,"[{'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'KNEE', 'ELBOW', 'HIP', 'WRIST'}, {'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'OKLAHOMA', 'PACKER', 'COWBOY', 'BRONCO'}, {'RAVEN', 'PACKER', 'COWBOY', 'BRONCO'}, {'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'KNEE', 'ELBOW', 'HIP', 'WRIST'}, {'AIRPLANE', 'BOWTIE', 'SPIRAL', 'SHELL'}]",lost,8
 Claude,"[{'CUBE', 'CONE', 'SPHERE', 'PYRAMID'}, {'TOMATO', 'LIMA', 'PEPPER', 'CUCUMBER'}, {'EGGPLANT', 'TOMATO', 'LIMA', 'PEPPER'}, {'EGGPLANT', 'TOMATO', 'PEPPER', 'CUCUMBER'}, {'POD', 'PHONE', 'MOBILE', 'PAD'}, {'POD', 'MAC', 'PHONE', 'PAD'}, {'JOB', 'POLISH', 'LIMA', 'MOBILE'}]",won,7
 Claude,"[{'LACE', 'HEEL', 'TONGUE', 'SOLE'}, {'CLUE', 'TROUBLE', 'RISK', 'SORRY'}, {'DUCKIE', 'HUNT', 'BOND', 'RYAN'}, {'SMART', 'HUNT', 'BOND', 'RYAN'}, {'BAND', 'CEMENT', 'DUCKIE', 'SOUL'}]",won,5
 Claude,"[{'LOIN', 'FLANK', 'ROUND', 'SHANK'}, {'SUB', 'CUBAN', 'CLUB', 'MELT'}, {'YACHT', 'FERRY', 'TUG', 'JUNK'}, {'CHUCK', 'SUE', 'JOSH', 'ROB'}]",won,4
@@ -198,5 +198,3 @@ Claude,"[{'IGUANA', 'COBRA', 'GECKO', 'CHAMELEON'}, {'IGUANA', 'MONITOR', 'GECKO
 Claude,"[{'LINEN', 'CORDUROY', 'TWEED', 'DENIM'}, {'GHOST', 'GENIE', 'SPECTER', 'SPIRIT'}, {'GHOST', 'SPECTER', 'PHANTOM', 'SPIRIT'}, {'POKE', 'NEEDLE', 'STITCH', 'RIB'}, {'POKE', 'TEASE', 'NEEDLE', 'STITCH'}]",lost,5
 Claude,"[{'MOTHER', 'GRANDFATHER', 'NEPHEW', 'AUNT'}, {'WACKY', 'QUIRKY', 'KOOKY', 'DAFFY'}, {'SCROOGE', 'DEWEY', 'DAISY', 'DONALD'}, {'MOTHER', 'GRANDFATHER', 'COUSIN', 'AUNT'}, {'COUSIN', 'GRANDFATHER', 'NEPHEW', 'AUNT'}, {'MOTHER', 'GRANDFATHER', 'NEPHEW', 'AUNT'}, {'MOTHER', 'CUCKOO', 'ALARM', 'GRANDFATHER'}]",lost,7
 Claude,"[{'MILE', 'INCH', 'FOOT', 'YARD'}, {'OIL', 'TEMPERA', 'WATERCOLOR', 'ACRYLIC'}, {'SCHNITZEL', 'FALAFEL', 'SAMOSA', 'KATSU'}, {'DIM', 'PEN', 'NICK', 'QUART'}]",won,4
-Claude,"[{'POM', 'PEKE', 'KING', 'WOLF'}, {'NOSE', 'CHEEK', 'MOUTH', 'EYE'}, {'CHOW', 'PEKE', 'POM', 'WOLF'}, {'STOOGE', 'AMIGO', 'TENOR', 'KING'}, {'CHOW', 'WOLF', 'PEKE', 'LAB'}, {'CHOW', 'SCARF', 'GOBBLE', 'POM'}]",lost,6
-Claude,"[{'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'KNEE', 'ELBOW', 'HIP', 'WRIST'}, {'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'OKLAHOMA', 'PACKER', 'COWBOY', 'BRONCO'}, {'RAVEN', 'PACKER', 'COWBOY', 'BRONCO'}, {'KNEE', 'ELBOW', 'HIP', 'SHOULDER'}, {'KNEE', 'ELBOW', 'HIP', 'WRIST'}, {'AIRPLANE', 'BOWTIE', 'SPIRAL', 'SHELL'}]",lost,8
