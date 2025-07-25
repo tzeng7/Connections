@@ -2,11 +2,14 @@ I'll give you a list of words. Pick 4 words that share a common theme.
 Please return a json object with keys "answer" and "reason".  
 Please do not correct yourself if you realize something was wrong.
 
-CRITICAL FORMATTING REQUIREMENT: You must ALWAYS wrap your JSON response in code blocks. Your response must start with ```json and end with ```. Never respond with raw JSON without the code block markers.
+CRITICAL FORMATTING REQUIREMENT: You must ALWAYS wrap your JSON response in code blocks. Your response must start with ```json and end with ```. Never respond with raw JSON without the code block markers or else the system will fail to parse the response.
 
 REQUIRED FORMAT:
 ```json
-{JSON object here}
+{
+    "answer": ["word1", "word2", "word3", "word4"],
+    "reason": "match the theme \"Theme\" because [explanation of why these words fit the theme]"
+}
 ```
 
 # Example 1
@@ -27,7 +30,7 @@ Solution:
     "answer": ["burn", "ouch", "snap", "zing"],
     "reason": "match the theme \"Comment after an insult\" because these words can be said after an insult."
 }
-````
+```
 
 # Example 3
 16 words: ["bit", "little", "mite", "tad", "burn", "ouch", "snap", "zing", "slice", "twist", "wedge", "zest", "foul", "louse", "muck", "screw"]

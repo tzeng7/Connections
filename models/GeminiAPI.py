@@ -17,6 +17,7 @@ class GeminiLLMPrompter(Model):
         self.client = genai.Client(api_key=os.getenv("GEMINI_KEY"))
         self.chat_session = self.client.chats.create(
             model="gemini-2.5-pro-preview-06-05",
+            
         )
         self.history = []
         self.uses_flash = True

@@ -52,8 +52,7 @@ class GameAutomationStatCollector():
         try:
             card = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, path)))
-            print("HTML Element:", card.get_attribute("outerHTML"))
-            
+            print(card)
             self.wait.until(EC.visibility_of(card))
             self.wait.until(EC.element_to_be_clickable(card))
             card.click()
@@ -209,5 +208,7 @@ class GameAutomationStatCollector():
         
 def run(m):
     automated_connections_run = GameAutomationStatCollector(m)
-    automated_connections_run.play(2)
-run(DeepseekLLMPrompter)
+    for i in range(14, 51):
+        automated_connections_run.play(i)
+        time.sleep(10)
+run(ClaudeLLMPrompter)
